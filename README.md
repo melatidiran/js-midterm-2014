@@ -1,4 +1,4 @@
 js-midterm-2014
 ===============
 
-Midterm for Javascript
+Coming soon to a repository near you
