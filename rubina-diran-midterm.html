@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Rubina Diran: Midterm</title>
+  <style>
+  body {
+  	background-image: url('files/galaxybackground.jpg');
+  	background-color: black;
+  	background-attachment: fixed;
+  }
+
+  div.pip {
+  	background-position: center;
+  	position: fixed;
+  	top: 50%;
+  	left: 50%;
+  	transform: translate(-50%, -50%);
+  }
+
+  div#pip_drawing {
+  	top: 50%;
+  	left: 50%;
+  	transform: translate(-50%, -50%);
+  }
+
+  </style>
+ </head>
+
+ <body onload="draw();">
+ 	<div id='pip_wrapper'>
+	 	<canvas id="pipDrawing" width="500" height="500">
+			<div id="nopipdrawing">
+				<p>Your browser doesn't support canvas.</p>
+			</div>
+		</canvas>
+	</div>
+ 	<div class='pip'>
+ 		<img src="files/pip.png">
+ 	</div>
+ 	<script>
+ 		var drawingPip = document.getElementById('pipDrawing');
+		// Check the element is in the DOM and the browser supports canvas
+		if(drawingPip.getContext) {
+		// Initaliase a 2-dimensional drawing context
+
+		var context = drawingPip.getContext('2d');
+		//Canvas commands go here
+
+		$('#pipDrawing').mousedown(function(e){
+		  var mouseX = e.pageX - this.offsetLeft;
+		  var mouseY = e.pageY - this.offsetTop;
+				
+		  paint = true;
+		  addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
+		  redraw();
+		});
+
+		$('#pipDrawing').mouseup(function(e){
+		  paint = false;
+		});
+
+		function redraw(){
+		  context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
+		  
+		  context.strokeStyle = "#33CCB3";
+		  context.lineJoin = "round";
+		  context.lineWidth = 5;
+					
+		  for(var i=0; i < clickX.length; i++) {		
+		    context.beginPath();
+		    if(clickDrag[i] && i){
+		      context.moveTo(clickX[i-1], clickY[i-1]);
+		     }else{
+		       context.moveTo(clickX[i]-1, clickY[i]);
+		     }
+		     context.lineTo(clickX[i], clickY[i]);
+		     context.closePath();
+		     context.stroke();
+		  }
+		}
+
+		}
+	</script>
+ </body>
