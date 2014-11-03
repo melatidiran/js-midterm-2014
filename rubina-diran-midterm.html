@@ -4,82 +4,143 @@
   <meta charset="utf-8">
   <title>Rubina Diran: Midterm</title>
   <style>
-  body {
-  	background-image: url('files/galaxybackground.jpg');
-  	background-color: black;
-  	background-attachment: fixed;
-  }
+  	body {
+      background-repeat: no-repeat;
+      background-color: black;
+  		padding: 0; 
+  		margin: 0;
+      background-position: center;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
 
-  div.pip {
-  	background-position: center;
-  	position: fixed;
-  	top: 50%;
-  	left: 50%;
-  	transform: translate(-50%, -50%);
-  }
+    #title {
+      width: 1000px;
+      text-align: center;
+      position: absolute;
+      top: 10%;
 
-  div#pip_drawing {
-  	top: 50%;
-  	left: 50%;
-  	transform: translate(-50%, -50%);
-  }
+    }
+
+    .pip {
+      background-position: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50.5%);
+      background-image: url("pip.png");
+    }
+
+
+
 
   </style>
+
+  <script language="javascript" src="./p5.js"></script>
+  <script language="javascript" src="sketch.js"></script> 
+
  </head>
 
- <body onload="draw();">
- 	<div id='pip_wrapper'>
-	 	<canvas id="pipDrawing" width="500" height="500">
-			<div id="nopipdrawing">
-				<p>Your browser doesn't support canvas.</p>
-			</div>
-		</canvas>
-	</div>
- 	<div class='pip'>
- 		<img src="files/pip.png">
- 	</div>
- 	<script>
- 		var drawingPip = document.getElementById('pipDrawing');
-		// Check the element is in the DOM and the browser supports canvas
-		if(drawingPip.getContext) {
-		// Initaliase a 2-dimensional drawing context
+ <body>
+    <div class='pip'>
+        <img id='pic' class='pippic' alt='pip1' src='pip.png' onclick='changeImage()'>
+      <!-- 
+      <img id='pic' class='pippic' src='pip3.png'>
+      <img id='pic' class='pippic' src='pip4.png'>
+      <img id='pic' class='pippic' src='pip5.png'>
+      <img id='pic' class='pippic' src='pip6.png'>
+      <img id='pic' class='pippic' src='pip7.png'>
+      <img id='pic' class='pippic' src='pip8.png'>
+      <img id='pic'  class='pippic' src='pip.png'> -->
+    </div>
 
-		var context = drawingPip.getContext('2d');
-		//Canvas commands go here
+<!--   <div id='title'>
+    <img src='title.png'>
+  </div>
+  -->
+<!-- python -m SimpleHTTPServer -->
 
-		$('#pipDrawing').mousedown(function(e){
-		  var mouseX = e.pageX - this.offsetLeft;
-		  var mouseY = e.pageY - this.offsetTop;
-				
-		  paint = true;
-		  addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
-		  redraw();
-		});
+    <script>
+    //  PROCESS WORK 1
+    //   function changeImage() {
 
-		$('#pipDrawing').mouseup(function(e){
-		  paint = false;
-		});
+    //     var newsrc = ["pip.png", "pip2.png", "pip3.png", "pip4.png", "pip5.png", "pip6.png", "pip7.png", "pip.8png"];
 
-		function redraw(){
-		  context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
-		  
-		  context.strokeStyle = "#33CCB3";
-		  context.lineJoin = "round";
-		  context.lineWidth = 5;
-					
-		  for(var i=0; i < clickX.length; i++) {		
-		    context.beginPath();
-		    if(clickDrag[i] && i){
-		      context.moveTo(clickX[i-1], clickY[i-1]);
-		     }else{
-		       context.moveTo(clickX[i]-1, clickY[i]);
-		     }
-		     context.lineTo(clickX[i], clickY[i]);
-		     context.closePath();
-		     context.stroke();
-		  }
-		}
+    //     if (newsrc == 'pip.png') {
+    //       document.images["pic"].src = "pip.png";
+    //       document.images["pic"].alt = "pip";
+    //       newsrc  = "pip2.png";
+    //     } else if (newsrc == "pip2.png") {
+    //       document.images["pic"].src = "pip2.png";
+    //       document.images["pic"].alt = "pip2";
+    //       newsrc  = "pip3.png";
+    //     } else if (newsrc == "pip3.png"){
+    //       document.images["pic"].src = "pip3.png";
+    //       document.images["pic"].alt = "pip3";
+    //       newsrc  = "pip4.png";
+    //     } else if (newsrc == "pip4.png"){
+    //       document.images["pic"].src = "pip4.png";
+    //       document.images["pic"].alt = "pip4";
+    //       newsrc  = "pip5.png";
+    //     } else if (newsrc == "pip5.png"){
+    //       document.images["pic"].src = "pip5png";
+    //       document.images["pic"].alt = "pip5";
+    //       newsrc  = "pip6.png";
+    //     } else if (newsrc == "pip6.png"){
+    //       document.images["pic"].src = "pip6.png";
+    //       document.images["pic"].alt = "pip6";
+    //       newsrc  = "pip7.png";
+    //     } else if (newsrc == "pip7.png"){
+    //       document.images["pic"].src = "pip7.png";
+    //       document.images["pic"].alt = "pip7";
+    //       newsrc  = "pip8.png";
+    //     } else if (newsrc == "pip8.png"){
+    //       document.images["pic"].src = "pip8.png";
+    //       document.images["pic"].alt = "pip8";
+    //       newsrc  = "pip.png";
+    //   }
+    // }
+      
+    
+    //  PROCESS WORK 2
 
-		}
-	</script>
+      // (function () {
+
+      //   var images = ["pip.png", "pip2.png", "pip3.png", "pip4.png", "pip5.png", "pip6.png", "pip7.png", "pip.8png"];
+
+      //   var imagePip = images.length;
+
+      //   var $pip = $('.pip');
+
+      //   var setImage = function(imageUrl) {
+      //     imageUrl = "url(" + imageUrl + ")";
+      //     $('.pip').css({"backgroundImage": imageUrl});
+      //   }
+
+      //   $pip.click (function (e) {
+      //     var pipRan = Math.floor(Math.random() * (imagePip));
+      //     setImage(images[pipRan]);
+
+      //   });
+
+      // })
+      // var pipchange = document.getElementById('pip1');
+      // pipchange.classList.add('pip2');
+
+      // var clickHandler = function(e) {
+
+      //   if (e.currentTarget.classList.contains('pip1')){
+      //     e.currentTarget.classList.remove('pip1');
+      //   } else {
+      //     e.currentTarget.classList.add('pip1');
+      //   }
+
+      // };
+
+      // pipchange.addEventListener('click', clickHandler);
+
+      
+    </script>
  </body>
